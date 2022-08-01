@@ -24,6 +24,10 @@ a {
 	text-decoration: none;
 }
 
+.article-content {
+	font-family: "Inconsolata";
+}
+
 .article-content p {
 	@apply font-medium mb-6;
 }
