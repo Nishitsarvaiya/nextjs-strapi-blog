@@ -140,6 +140,8 @@ const Article = ({ article }) => {
 															li: ({ children }) => (
 																<li className='text-base font-medium text-gray-600 mb-2'>{children}</li>
 															),
+															pre: ({ children }) => <pre className='overflow-auto'>{children}</pre>,
+															code: ({ children }) => <code className='whitespace-pre-wrap'>{children}</code>,
 															link: ({ children }) => (
 																<a className='text-base font-medium text-blue-600 underline underline-offset-1 cursor-pointer mb-2'>
 																	{children}
