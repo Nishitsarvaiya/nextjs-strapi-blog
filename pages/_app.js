@@ -28,7 +28,6 @@ const MyApp = ({ Component, pageProps }) => {
 MyApp.getInitialProps = async (ctx) => {
 	// Call App's getInitialProps and fill appProps.pageProps
 	const appProps = await App.getInitialProps(ctx);
-	console.log("getInitialProps :: ", appProps);
 
 	// fetch global site settings from Strapi
 	const globalRes = await fetchApi("/global", {
@@ -39,7 +38,6 @@ MyApp.getInitialProps = async (ctx) => {
 			},
 		},
 	});
-	console.log("Global :: ", globalRes);
 
 	return { ...appProps, pageProps: { global: globalRes.data } };
 };
