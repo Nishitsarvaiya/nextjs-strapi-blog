@@ -4,6 +4,7 @@ import { Seo, NextImage } from "../../components";
 import { fetchApi } from "../../lib/api";
 import { getStrapiMedia } from "../../lib/media";
 import Link from "next/link";
+import { useEffect } from "react";
 
 export const getStaticPaths = async () => {
 	const articlesRes = await fetchApi("/articles", { fields: ["slug"] });
@@ -37,6 +38,7 @@ export const getStaticProps = async ({ params }) => {
 };
 
 const Article = ({ article }) => {
+	console.log(article);
 	const imageUrl = getStrapiMedia(article.attributes.image);
 	const seo = {
 		metaTitle: article.attributes.title,
@@ -102,9 +104,7 @@ const Article = ({ article }) => {
 														<NextImage image={article.attributes.author.data.attributes.picture} />
 													</div>
 													<div>
-														<div className='text-base font-semibold text-black mb-2'>
-															{article.attributes.author.data.attributes.name}
-														</div>
+														<div className='text-base font-semibold text-black mb-2'>{article.attributes.author.data.attributes.name}</div>
 														<div className='flex gap-2 items-center'>
 															<div className='text-xs text-black/75 font-medium'>
 																<Moment format='MMM Do YYYY'>{article.attributes.published_at}</Moment>
@@ -117,9 +117,7 @@ const Article = ({ article }) => {
 											</header>
 											<section className='mt-6'>
 												<h1 className='text-4xl lg:text-6xl font-bold text-black mb-10'>{article.attributes.title}</h1>
-												<h3 className='text-lg lg:text-xl font-medium text-black/75 mb-8'>
-													{article.attributes.description}
-												</h3>
+												<h3 className='text-lg lg:text-xl font-medium text-black/75 mb-8'>{article.attributes.description}</h3>
 												<div className='w-full h-[400px] overflow-hidden mb-10'>
 													<img className='w-full h-full object-cover object-center' src={imageUrl} alt='' />
 												</div>
@@ -127,19 +125,13 @@ const Article = ({ article }) => {
 													<ReactMarkdown
 														children={article.attributes.content}
 														components={{
-															h1: (props) => (
-																<h1 className='text-3xl lg:text-4xl font-bold tracking-wide mt-10 mb-5' {...props} />
-															),
-															h2: (props) => (
-																<h2 className='text-2xl lg:text-3xl font-bold tracking-wide mt-10 mb-5' {...props} />
-															),
+															h1: (props) => <h1 className='text-3xl lg:text-4xl font-bold tracking-wide mt-10 mb-5' {...props} />,
+															h2: (props) => <h2 className='text-2xl lg:text-3xl font-bold tracking-wide mt-10 mb-5' {...props} />,
 															h3: (props) => <h3 className='text-xl lg:text-2xl font-bold mt-10 mb-5' {...props} />,
 															h4: (props) => <h4 className='text-lg lg:text-xl font-bold mt-10 mb-5' {...props} />,
 															ul: ({ children }) => <ul className='list-disc my-5 ml-4'>{children}</ul>,
 															ol: ({ children }) => <ol className='list-decimal my-5 ml-4'>{children}</ol>,
-															li: ({ children }) => (
-																<li className='text-base font-medium text-gray-600 mb-2'>{children}</li>
-															),
+															li: ({ children }) => <li className='text-base font-medium text-gray-600 mb-2'>{children}</li>,
 															pre: ({ children }) => <pre className='overflow-auto'>{children}</pre>,
 															code: ({ children }) => <code className='whitespace-pre-wrap'>{children}</code>,
 															link: ({ children }) => (
@@ -169,9 +161,7 @@ const Article = ({ article }) => {
 											<div className='h-20 w-20 rounded-full overflow-hidden mb-4  relative'>
 												<NextImage image={article.attributes.author.data.attributes.picture} />
 											</div>
-											<div className='text-md font-semibold text-black mb-2'>
-												{article.attributes.author.data.attributes.name}
-											</div>
+											<div className='text-md font-semibold text-black mb-2'>{article.attributes.author.data.attributes.name}</div>
 											<div className='text-sm text-black/75'>{article.attributes.author.data.attributes.email}</div>
 										</div>
 									</div>
